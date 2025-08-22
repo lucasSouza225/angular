@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { Moments } from '../Moments';
 
 @Component({
   selector: 'app-moments-form',
@@ -8,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './moments-form.css'
 })
 export class MomentsForm {
+  @Output() onSubmit = new EventEmitter<Moments>()
   @Input() btnText!: string
 
   momentForm!: FormGroup
@@ -17,7 +20,7 @@ export class MomentsForm {
       id: new FormControl(''),
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
-      image: new FormControl('')
+      image: new FormControl(''),
     });
   }
 
@@ -27,12 +30,23 @@ export class MomentsForm {
   get description() {
     return this.momentForm.get('description')!;
   }
+  
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+
+    this.momentForm.patchValue({image: file})
+
+  }
+  
   submit() {
     if(this.momentForm.invalid) {
       return;
     }
 
-    console.log('Enviou o furmulario')
+    console.log(this.momentForm.value);
+
+    this.onSubmit.emit(this.momentForm.value);
   }
 
 }
