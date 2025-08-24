@@ -1,0 +1,23 @@
+.about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2em;
+}
+
+h2, p {
+    margin-bottom: 1em;
+}
+
+.about a:hover {
+    background-color: #fff;
+
+}
+
+.about a:hover span{
+    color: #555555;
+    background-color: #dec129;
+    padding: 3px;
+    border-radius: 3px;
+}
