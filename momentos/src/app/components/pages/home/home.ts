@@ -20,6 +20,9 @@ export class Home {
   moments: Moments[] = []
   baseApiUrl = environment.baseApiUrl
 
+  faSearch = faSearch;
+  searchTerm: string = '';
+
   // todo search
 
 
@@ -38,5 +41,16 @@ export class Home {
       this.moments = data
 
     });
+  }
+
+  search(enven: any): void {
+
+    const target = enven.target as HTMLInputElement
+    const value = target.value
+
+ this.moments = this.allMoments.filter(moment =>
+  moment.title.toLowerCase().includes(value.toLowerCase())
+);
+
   }
 }
